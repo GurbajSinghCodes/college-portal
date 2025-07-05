@@ -63,11 +63,20 @@ const Verify = () => {
             setTimeout(() => setFocus('otp'), 0);
         } catch (error) {
             if (error.response) {
-                toast.warning("Enter valid email address");
-                setFocus('email');
-            } else if (error.request) {
+                if (error.response.status === 400) {
+                    toast.warning("Enter valid email address");
+                    setFocus('email');
+                }
+                else if (error.response.status >= 500) {
+                    toast.error("Interal Server Error. Please try again later.");
+                } else {
+                    toast.error("Something went wrong. Please try again.");
+                }
+            }
+            else if (error.request) {
                 toast.error("Server is unavailable. Please try again later.");
-            } else {
+            }
+            else {
                 toast.error("Something went wrong. Please try again.");
             }
         }
