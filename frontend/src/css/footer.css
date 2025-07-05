@@ -1,0 +1,38 @@
+.footer {
+    position: relative;
+    padding: 1em;
+    text-align: center;
+    font-size: 0.9rem;
+    color: white;
+    background-color: var(--theme1);
+    height: 40px;
+}
+
+.footer p {
+    display: inline-block;
+}
+
+.footer .username {
+    margin: 5px;
+    font-size: smaller;
+    position: absolute;
+    padding: 5px;
+    right: 0;
+    bottom: 0px;
+}
+
+#footer-contact-us a {
+    position: absolute;
+    color: white;
+    bottom: 10px;
+    text-decoration: none;
+    left: 100px;
+}
+
+#footer-contact-us a:hover {
+    transform: translateY(-2px);
+}
+
+.border {
+    border: 1px solid;
+}

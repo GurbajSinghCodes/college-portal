@@ -1,0 +1,8 @@
+:root {
+  --theme1: rgb(13, 24, 33);
+  --theme1-700: rgba(13, 24, 33, 0.7);
+  --theme1-500: rgba(13, 24, 33, 0.5);
+  --theme1-faded: rgba(13, 24, 33, 0.1);
+  --theme1-contrast: rgb(42, 168, 222);
+  --theme1-contrast-faded: rgba(42, 168, 222, 0.7);
+}

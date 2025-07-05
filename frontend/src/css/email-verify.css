@@ -1,0 +1,105 @@
+form {
+  padding: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+fieldset {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--theme1);
+  border-radius: 15px;
+  padding: 5vw;
+  margin: 2vw;
+}
+
+legend {
+  text-align: center;
+  border: 2px solid var(--theme1);
+  padding: 5px 10px;
+  font-family: serif;
+  color: var(--theme1);
+
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputIcon {
+  margin: 0 9px;
+  width: 17px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+}
+
+.inputs {
+  background-color: var(--theme1-700);
+  color: white;
+  padding: 10px 10px 10px 40px;
+  border-radius: 8px;
+  border: 0;
+  width: 320px;
+  height: 40px;
+  max-width: 90vw;
+  transition: all 0.3s ease;
+}
+
+input:-webkit-autofill {
+  border: 1px solid #ccc;
+  background-color: black !important;
+}
+
+
+.inputs::placeholder {
+  color: whitesmoke;
+}
+
+.inputs:focus {
+  border: none;
+  outline: none;
+}
+
+
+
+.inputWrapper:active {
+  scale: 0.98;
+}
+
+
+.submit {
+  text-transform: uppercase;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: none;
+  padding: 0.5em 1.5rem;
+  font-size: 1.05rem;
+  font-family: Calibri, 'Trebuchet MS', sans-serif;
+  max-width: 150px;
+  font-weight: 600;
+  background: linear-gradient(145deg, #3a3f47, var(--theme1-contrast-faded), #3a3f47);
+  cursor: pointer;
+}
+
+
+.submit:hover {
+  scale: 1.05;
+}
+
+.errors {
+  /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+  font-family: cursive;
+  color: red;
+}
+
+.inputError {
+  border: 1px solid red;
+
+}

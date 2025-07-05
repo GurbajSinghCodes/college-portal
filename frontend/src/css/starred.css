@@ -1,0 +1,14 @@
+.starredmain {
+    padding: 2rem 5vw;
+}
+
+#starredempty {
+    height: 60vh;
+    width: 40vw;
+    font-size: larger;
+    font-family: cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
