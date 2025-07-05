@@ -17,17 +17,17 @@ import StarredFiles from './components/starred.jsx';
 import NotFound from './components/not-found.jsx';
 import Footer from './components/footer.jsx';
 import { AuthProvider } from './components/user-context.jsx';
-import "../css/about.css"
-import '../css/contact.css';
+import "./css/about.css"
+import './css/contact.css';
 import './css/custom-toast.css';
 import "./css/email-verify.css";
-import '../css/footer.css'
-import "../css/home.css";
-import '../css/login.css'
+import './css/footer.css'
+import "./css/home.css";
+import './css/login.css'
 import './css/navbar.css'
-import '../css/notes.css';
+import './css/notes.css';
 import './css/scrollbar.css'
-import '../css/starred.css';
+import './css/starred.css';
 import './css/variables.css'
 
 
