@@ -9,12 +9,19 @@ import mongoose from "mongoose"
 import dbRoutes from "./routes/db-routes.js";
 import { fileURLToPath } from "url";
 import User from "./models/user.js";
+import MongoStore from 'connect-mongo'
 
 dotenv.config();
 
 const frontend = process.env.FRONT_END
-
 const app = express();
+
+const database = process.env.MONGO_DATABASE
+mongoose.connect(database);
+mongoose.connection.on("connected", () => {
+    console.log("MongoDB connected");
+});
+
 app.use(express.json());
 
 app.use(cors({
@@ -37,6 +44,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_DATABASE,
+    }),
     cookie: {
         secure: false,
         httpOnly: true,
@@ -222,10 +232,5 @@ app.use("/resources", express.static(QPS_DIR));
 
 app.use("/api", dbRoutes);
 
-const database = process.env.MONGO_DATABASE
-mongoose.connect(database);
-mongoose.connection.on("connected", () => {
-    console.log("MongoDB connected");
-});
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on ${PORT} `));
