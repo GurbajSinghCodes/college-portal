@@ -40,6 +40,7 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS,
     },
 });
+const isProduction = process.env.NODE_ENV === "production";
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -48,12 +49,12 @@ app.use(session({
         mongoUrl: process.env.MONGO_DATABASE,
     }),
     cookie: {
-        secure: false,
         httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000
+        secure: isProduction,              // true in production (HTTPS), false locally
+        sameSite: isProduction ? "none" : "lax", // required for cross-origin cookies
+        maxAge: 7 * 24 * 60 * 60 * 1000     // 7 days
     }
 }));
-
 
 app.get("/", (req, res) => {
     console.log("Server requested")
