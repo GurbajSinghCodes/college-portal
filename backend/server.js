@@ -41,6 +41,11 @@ const transporter = nodemailer.createTransport({
     },
 });
 const isProduction = process.env.NODE_ENV === "production";
+
+if (isProduction) {
+    app.set("trust proxy", 1);
+}
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
