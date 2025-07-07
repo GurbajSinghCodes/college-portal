@@ -38,7 +38,7 @@ const Folder = ({ name, contents, parentPath = "", starred, onStarToggle }) => {
                             <div key={key} className="file-card">
                                 <img src="/svg/document.svg" alt="file" className="file-icon" />
                                 <a
-                                    href={`${backend}/notes${fullPath}`}
+                                    href={`${backend}/resources${fullPath}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="file-link"
