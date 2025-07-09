@@ -1,24 +1,38 @@
 body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #2c3e50;
 }
 
 .contact {
-    padding: 3rem;
-    min-height: calc(var(--vh, 1vh) * 100 - 100px);
-    background: url('/images/hgpi.jpg') center/cover no-repeat fixed;
+    padding: 50px 0;
+}
+
+.full-page-blur-contact {
+    content: '';
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: gray;
+    background-image: url("/images/hgpi.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 
 .contact-wrapper {
-    margin: auto;
+
     max-width: 900px;
+    margin: auto;
     padding: 1rem 2rem;
     background-color: rgba(255, 255, 255, 0.85);
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
 }
 
 .contact-heading {
@@ -65,6 +79,10 @@ body {
 }
 
 @media (max-width: 1000px) {
+    .contact {
+        padding: 20px 0;
+    }
+
     .contact-wrapper {
         margin: 2rem;
     }

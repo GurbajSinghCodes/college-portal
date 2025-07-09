@@ -16,11 +16,13 @@ import Passwordlogin from './components/password-login.jsx'
 import StarredFiles from './components/starred.jsx';
 import NotFound from './components/not-found.jsx';
 import Footer from './components/footer.jsx';
+import FAQ from './components/faq.jsx';
 import { AuthProvider } from './components/user-context.jsx';
 import "./css/about.css"
 import './css/contact.css';
 import './css/custom-toast.css';
 import "./css/email-verify.css";
+import './css/faq.css';
 import './css/footer.css'
 import "./css/home.css";
 import './css/login.css'
@@ -28,7 +30,8 @@ import './css/navbar.css'
 import './css/notes.css';
 import './css/scrollbar.css'
 import './css/starred.css';
-import './css/variables.css'
+import './css/variables.css';
+
 
 
 const App = () => {
@@ -40,9 +43,9 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="app">
+        <div className="app ">
+          <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           <main className="appcontent" onClick={() => menuOpen && setMenuOpen(false)}>
-            <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
 
             <ToastContainer position="top-center" autoClose={3000} icon={true} />
@@ -51,6 +54,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
+                <Route path='/faq' element={<FAQ />} />
                 <Route path="/notes" element={<Notes />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/starred" element={<StarredFiles />} />
@@ -62,8 +66,8 @@ const App = () => {
                 <Route path='*' element={<NotFound />} />
               </Routes>
             </div>
+            <Footer />
           </main>
-          <Footer />
         </div>
       </BrowserRouter>
     </AuthProvider>

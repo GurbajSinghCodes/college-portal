@@ -212,7 +212,12 @@ const Verify = () => {
                             <div className="inputWrapper">
                                 <FolderPen className="inputIcon" />
                                 <input
-                                    {...register('fullname', { required: { value: true, message: "Field can't be empty" } })}
+                                    {...register('fullname', {
+                                        required: { value: true, message: "Field can't be empty" }, pattern: {
+                                            value: /^[A-Za-z\s]+$/,
+                                            message: "Only alphabets are allowed"
+                                        }, minLength: { value: 3, message: "Use atleast 3 characters in fullname" }
+                                    })}
                                     className={`inputs ${errors.fullname ? 'inputError' : ''}`}
                                     placeholder="Enter fullname"
                                 />

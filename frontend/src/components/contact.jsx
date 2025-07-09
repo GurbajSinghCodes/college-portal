@@ -2,7 +2,9 @@ import { Mail, Phone, MapPin, Github, Linkedin, User } from 'lucide-react';
 
 const Contact = () => {
     return (
-        <div className="contact">
+        <div className='contact'>
+            <div className="full-page-blur-contact">
+            </div>
 
             <div className="contact-wrapper">
                 <h2 className="contact-heading">Get in Touch</h2>
@@ -27,6 +29,7 @@ const Contact = () => {
                     </p>
                 </div>
             </div>
+
         </div>
     );
 };

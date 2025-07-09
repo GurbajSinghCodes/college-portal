@@ -48,14 +48,10 @@
 
     .footer {
         width: 100%;
-        position: sticky;
-        bottom: 0;
-        bottom: -10px;
         flex-direction: column;
         justify-content: unset;
         padding: 12px 0px;
         height: 100px;
-
     }
 }
 

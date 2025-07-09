@@ -1,12 +1,7 @@
-.loginmain {
-    height: 30vh;
-}
-
 .alreadyLoggedIn {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
     font-size: 20px;
     font-family: candara;
 }
@@ -26,7 +21,7 @@
     flex-direction: row;
 }
 
-cd b .loginheads {
+.loginheads {
     text-align: center;
     border-radius: 8px;
     box-shadow: 5px 6px 15px var(--theme1);
@@ -62,6 +57,15 @@ cd b .loginheads {
 
     .loginheads {
         height: unset;
+    }
+
+    .loginheads big {
+        font-size: medium;
+
+    }
+
+    .loginheads small {
+        font-size: x-small;
     }
 
     .moved-up {

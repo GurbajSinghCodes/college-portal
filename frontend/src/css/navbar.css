@@ -2,7 +2,24 @@
   box-sizing: border-box;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+}
+
+.appcontent {
+  flex: 1;
+  position: relative;
+  top: 60px;
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .routes {
+  width: 100%;
+  flex: 1;
   max-width: 1200px;
   margin: auto;
 }
@@ -15,15 +32,11 @@
   padding: 0rem 2rem;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
 }
 
-.appcontent {
-  min-height: 100vh;
-  position: relative;
-}
 
 .logo #heading {
   font-size: 1.5rem;
@@ -55,10 +68,14 @@
   transform: scale(0.95);
 }
 
-.nav-links li>*,
-.nav-links li div {
+.nav-links li a:hover {
+  background-color: rgba(265, 265, 265, 0.8);
+  color: var(--theme1);
+}
+
+.nav-links li a {
   margin: 0.1rem;
-  padding: 0.4rem;
+  padding: 0.3rem;
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -81,7 +98,6 @@
   border-radius: 1px;
   animation: widthanimate 0.5s ease 1 forwards;
 }
-
 
 .logout-btn {
   background: transparent;
@@ -150,8 +166,9 @@
 
 
 @media (max-width: 768px) {
-  .appcontent {
-    min-height: calc((var(--vh, 1vh) * 100) - 100px);
+  .navbar {
+    /* padding: 0.7rem 2rem; */
+
   }
 
   .menu-toggle {
