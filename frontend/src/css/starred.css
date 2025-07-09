@@ -11,4 +11,11 @@
     justify-content: center;
     align-items: center;
     margin: auto;
+    text-align: center;
+}
+
+@media screen and (max-width:768px) {
+    .starredmain {
+        padding: 1rem 2vw;
+    }
 }

@@ -41,25 +41,27 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <div className="app">
-          <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           <main className="appcontent" onClick={() => menuOpen && setMenuOpen(false)}>
+            <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
 
             <ToastContainer position="top-center" autoClose={3000} icon={true} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/contact' element={<Contact />} />
-              <Route path="/notes" element={<Notes />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/starred" element={<StarredFiles />} />
-              <Route path="/qps" element={<Qps />} />
-              <Route path="/login" element={<Login />} >
-                <Route path="verify-otp" element={<Verify />} />
-                <Route path='passwordlogin' element={<Passwordlogin />} />
-              </Route>
-              <Route path='*' element={<NotFound />} />
-            </Routes>
+            <div className="routes">
+              <Routes >
+                <Route path="/" element={<Home />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/contact' element={<Contact />} />
+                <Route path="/notes" element={<Notes />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/starred" element={<StarredFiles />} />
+                <Route path="/qps" element={<Qps />} />
+                <Route path="/login" element={<Login />} >
+                  <Route path="verify-otp" element={<Verify />} />
+                  <Route path='passwordlogin' element={<Passwordlogin />} />
+                </Route>
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+            </div>
           </main>
           <Footer />
         </div>

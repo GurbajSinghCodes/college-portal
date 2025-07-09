@@ -109,7 +109,7 @@ const Qps = () => {
             if (loggedin.data?.success) {
                 const isAlreadyStarred = starred.includes(filePath);
 
-                await axios.post(
+                const res = await axios.post(
                     `${backend}/api/toggle-star`,
                     {
                         filePath,
@@ -118,6 +118,7 @@ const Qps = () => {
                     { withCredentials: true }
                 );
 
+                toast.success(res.data.message)
                 // Update local starred state
                 setStarred((prev) =>
                     isAlreadyStarred

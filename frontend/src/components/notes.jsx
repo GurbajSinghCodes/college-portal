@@ -112,7 +112,7 @@ const Notes = () => {
       if (loggedin.data?.success) {
         const isAlreadyStarred = starred.includes(filePath);
 
-        await axios.post(
+        const res = await axios.post(
           `${backend}/api/toggle-star`,
           {
             filePath,
@@ -127,6 +127,7 @@ const Notes = () => {
             ? prev.filter((f) => f !== filePath)
             : [...prev, filePath]
         );
+        toast.success(res.data.message)
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {

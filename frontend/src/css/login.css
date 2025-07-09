@@ -1,9 +1,5 @@
 .loginmain {
-    /* background: linear-gradient(to right, rgb(200, 199, 199), rgb(191, 188, 188), rgb(153, 152, 152)); */
-
-    background-color: rgb(205 205 205);
-    min-height: calc(100vh - 100px);
-    min-height: calc((var(--vh, 1vh) * 100) - 100px);
+    height: 30vh;
 }
 
 .alreadyLoggedIn {
@@ -16,7 +12,6 @@
 }
 
 .buttonSection {
-    /* min-height: calc(100vh - 100px); */
     display: flex;
     padding: 120px 40px;
     flex-direction: column;
@@ -29,11 +24,9 @@
     min-height: unset;
     padding: 25px 40px;
     flex-direction: row;
-
-
 }
 
-.loginheads {
+cd b .loginheads {
     text-align: center;
     border-radius: 8px;
     box-shadow: 5px 6px 15px var(--theme1);
@@ -73,7 +66,7 @@
 
     .moved-up {
         flex-direction: column;
-        gap: 20px;
+        gap: 40px;
         margin: auto;
     }
 

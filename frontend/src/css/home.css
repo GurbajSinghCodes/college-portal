@@ -10,28 +10,24 @@ body {
 }
 
 .homepage {
+  margin: auto;
   font-family: Arial, sans-serif;
   color: #ffffff;
   padding: 1rem 1rem;
-  position: relative;
-  min-height: 100vh;
 }
 
 .full-page-blur {
   content: '';
   position: absolute;
-  height: 100vh;
   top: 0px;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100%;
   background-color: black;
   background-image: url("/images/hgpi.jpg");
   background-size: cover;
   background-position: center center;
-  background-repeat: repeat;
-  background-attachment: fixed;
+  background-repeat: no-repeat;
   filter: blur(4.5px) brightness(0.4);
   z-index: -1;
 }
@@ -124,18 +120,13 @@ body {
 .notices li {
   list-style-type: none;
   position: relative;
-  padding-left: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.notices ul {
-  margin-top: 1em;
+  margin-bottom: 1rem;
 }
 
 .notices li::before {
   content: "";
   position: absolute;
-  left: 0;
+  left: -20px;
   top: 0.4em;
   width: 8px;
   height: 8px;
@@ -167,18 +158,20 @@ body {
 
 
 @media screen and (max-width: 900px) {
+  .notices li {
+    margin-bottom: 0.25rem;
+  }
+
   .content {
     flex-direction: column;
   }
 
   .notices {
-    width: 100%;
-    height: auto;
-    margin: 1rem 0;
+    width: 95%;
+    margin: 1rem auto;
   }
 
   .photos {
-    width: 100%;
     padding: 10px;
   }
 

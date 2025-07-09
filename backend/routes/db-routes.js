@@ -12,6 +12,7 @@ router.post("/toggle-star", async (req, res) => {
 
     const userEmail = sessionUser.email;
     try {
+        let message;
         const user = await User.findOne({ email: userEmail });
 
         if (!user) return res.status(404).json({ success: false, message: "User not found" });
@@ -19,12 +20,14 @@ router.post("/toggle-star", async (req, res) => {
         const index = user.starredFiles.indexOf(filePath);
         if (index === -1) {
             user.starredFiles.push(filePath);
+            message = "File starred"
         } else {
             user.starredFiles.splice(index, 1);
+            message = "File unstarred"
         }
 
         await user.save();
-        res.json({ success: true });
+        res.json({ success: true, message });
     } catch (err) {
         console.error("Toggle star failed:", err);
         res.status(500).json({ error: "Server error" });
