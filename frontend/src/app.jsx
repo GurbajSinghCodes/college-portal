@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -35,6 +35,17 @@ import './css/variables.css';
 
 
 const App = () => {
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+
+  useEffect(() => {
+    if (isIOS()) {
+      toast.warning("iOS users: To stay logged in, please go to Settings > Safari > Privacy & Security and turn OFF 'Prevent Cross-Site Tracking", {
+        autoClose: 10000,
+      })
+    }
+  }, []);
 
 
 
@@ -48,7 +59,7 @@ const App = () => {
           <main className="appcontent" onClick={() => menuOpen && setMenuOpen(false)}>
 
 
-            <ToastContainer position="top-center" autoClose={3000} icon={true} />
+            <ToastContainer position="top-center" autoClose={3000} closeOnClick={true} icon={true} />
             <div className="routes">
               <Routes >
                 <Route path="/" element={<Home />} />
