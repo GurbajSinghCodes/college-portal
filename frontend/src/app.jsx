@@ -35,17 +35,21 @@ import './css/variables.css';
 
 
 const App = () => {
+  const alreadyNotified = localStorage.getItem("iosToastDismissed");
   function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   }
 
   useEffect(() => {
-    if (isIOS()) {
+    if (isIOS() && !alreadyNotified) {
       toast.warning("iOS users: To stay logged in, please go to Settings > Safari > Privacy & Security and turn OFF 'Prevent Cross-Site Tracking", {
         autoClose: 10000,
+        onClose: () => {
+          localStorage.setItem("iosToastDismissed", "true");
+        }
       })
     }
-  }, []);
+  }, [])
 
 
 
