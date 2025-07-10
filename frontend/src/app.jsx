@@ -41,13 +41,16 @@ const App = () => {
   }
 
   useEffect(() => {
-    if (isIOS() && !alreadyNotified) {
-      toast.warning("iOS users: To stay logged in, please go to Settings > Safari > Privacy & Security and turn OFF 'Prevent Cross-Site Tracking", {
-        autoClose: 10000,
-        onClose: () => {
-          localStorage.setItem("iosToastDismissed", "true");
-        }
-      })
+    if (
+      isIOS() &&
+      !alreadyNotified) {
+      toast.warning("iOS users: To stay logged in, go to Settings → Safari → Privacy & Security and turn OFF 'Prevent Cross-Site Tracking'. Also, avoid using Private or Incognito mode, which can block cookies and session storage.",
+        {
+          autoClose: false,
+          onClose: () => {
+            localStorage.setItem("iosToastDismissed", "true");
+          }
+        })
     }
   }, [])
 
