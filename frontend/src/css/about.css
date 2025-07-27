@@ -7,7 +7,7 @@
 
 .about-hero {
   text-align: center;
-  background: linear-gradient(to right, #6b21a8, #9333ea);
+  background: linear-gradient(to right, var(--theme1-bg), var(--theme1-bg2));
   color: white;
   padding: 3rem 1rem;
   border-radius: 1rem;
@@ -26,7 +26,7 @@
 .about-section h2 {
   font-size: 2rem;
   margin-bottom: 0.8rem;
-  color: #6b21a8;
+  color: var(--theme1-bg);
 }
 
 .about-section p {
@@ -64,19 +64,19 @@
 }
 
 .vision-section {
-  background-color: #f4ebff;
+  background-color: var(--form-bg);
   padding: 2rem;
   border-radius: 1rem;
 }
 
 .contact-cta {
   text-align: center;
-  background: #ede9fe;
+  background: var(--form-bg);
   padding: 2rem;
   border-radius: 1rem;
 }
 
 .contact-cta a {
-  color: #6b21a8;
+  color: var(--theme1-bg);
   text-decoration: underline;
 }

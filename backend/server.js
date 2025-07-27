@@ -17,7 +17,9 @@ const frontend = process.env.FRONT_END
 const app = express();
 
 const database = process.env.MONGO_DATABASE
-mongoose.connect(database);
+mongoose.connect(database, {
+    serverSelectionTimeoutMS: 5000
+});
 mongoose.connection.on("connected", () => {
     console.log("MongoDB connected");
 });
@@ -87,7 +89,7 @@ Your One-Time Password (OTP) is: ${otp}
 This code is valid for 5 minutes. Please do not share it with anyone.`
 
     });
-    console.log("Otp sent")
+    console.log("Otp sent", otp)
     res.json({ success: true, message: "OTP sent" });
 });
 
@@ -107,12 +109,12 @@ app.post("/verify-otp", async (req, res) => {
         console.log("otp verified")
         const existingUser = await User.findOne({ email });
         const exists = await User.exists({ email });
-        req.session.user = { email }
 
         if (!existingUser) {
             await User.create({ email, starredFiles: [] });
             console.log("New user created");
         } else {
+            req.session.user = { email }
             console.log("User already exists");
             const fullname = existingUser.fullname.toLowerCase()
                 .split(' ')
@@ -121,7 +123,7 @@ app.post("/verify-otp", async (req, res) => {
             req.session.user = { ...req.session.user, fullname }
             return res.json({ success: true, fullname, exists, message: "OTP Verified!", sessionActive: true });
         }
-        return res.json({ success: true, exists, message: "OTP Verified!", sessionActive: true });
+        return res.json({ success: true, exists, message: "OTP Verified!" });
 
 
     }
@@ -129,6 +131,11 @@ app.post("/verify-otp", async (req, res) => {
     res.status(400).json({ success: false, message: "Invalid OTP " });
 
 });
+app.post('/existinguser', async (req, res) => {
+    const { email } = req.body;
+    const exists = await User.exists({ email });
+    return res.json({ success: true, exists })
+})
 
 app.post('/adddetails', async (req, res) => {
     try {
@@ -139,14 +146,30 @@ app.post('/adddetails', async (req, res) => {
         }
         user.fullname = fullname;
         user.password = password;
-        req.session.user = { ...req.session.user, fullname }
+        req.session.user = { email }
 
         await user.save();
-        res.json({ success: true, fullname, message: "User details updated successfully" });
+        res.json({ success: true, fullname, message: "User details updated successfully", sessionActive: true });
     } catch (err) {
         console.error(err);
         res.status(500).json({ success: false, message: "Server error. Please try again later." });
     }
+})
+
+app.post('/updatepassword', async (req, res) => {
+    try {
+
+        const { email, password } = req.body
+        const user = await User.findOne({ email });
+        const fullname = user.fullname
+        user.password = password
+        req.session.user = { email }
+        return res.json({ success: true, message: "Password updated successfully", fullname, sessionActive: true })
+    }
+    catch {
+        return res.json({ success: false, message: "Error updating password. Please try again later !" })
+    }
+
 })
 app.post('/passwordlogin', async (req, res) => {
     try {

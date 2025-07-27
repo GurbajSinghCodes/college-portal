@@ -13,6 +13,7 @@ import Qps from './components/qps.jsx';
 import Login from './components/login.jsx';
 import Verify from './components/email-verify.jsx'
 import Passwordlogin from './components/password-login.jsx'
+import Forgot_password from './components/forgot_password.jsx';
 import StarredFiles from './components/starred.jsx';
 import NotFound from './components/not-found.jsx';
 import Footer from './components/footer.jsx';
@@ -21,7 +22,6 @@ import { AuthProvider } from './components/user-context.jsx';
 import "./css/about.css"
 import './css/contact.css';
 import './css/custom-toast.css';
-import "./css/email-verify.css";
 import './css/faq.css';
 import './css/footer.css'
 import "./css/home.css";
@@ -41,6 +41,9 @@ const App = () => {
   }
 
   useEffect(() => {
+    const loader = document.getElementById('loadercontainer');
+    if (loader) loader.remove();
+
     if (
       isIOS() &&
       !alreadyNotified) {
@@ -52,7 +55,9 @@ const App = () => {
           }
         })
     }
+
   }, [])
+
 
 
 
@@ -63,10 +68,10 @@ const App = () => {
       <BrowserRouter>
         <div className="app ">
           <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          <ToastContainer position="top-center" autoClose={3000} closeOnClick={true} icon={true} />
           <main className="appcontent" onClick={() => menuOpen && setMenuOpen(false)}>
 
 
-            <ToastContainer position="top-center" autoClose={3000} closeOnClick={true} icon={true} />
             <div className="routes">
               <Routes >
                 <Route path="/" element={<Home />} />
@@ -78,8 +83,9 @@ const App = () => {
                 <Route path="/starred" element={<StarredFiles />} />
                 <Route path="/qps" element={<Qps />} />
                 <Route path="/login" element={<Login />} >
-                  <Route path="verify-otp" element={<Verify />} />
-                  <Route path='passwordlogin' element={<Passwordlogin />} />
+                  <Route path='signup' element={<Verify />} />
+                  <Route path='signin' element={<Passwordlogin />} />
+                  <Route path='forgotpassword' element={<Forgot_password />} />
                 </Route>
                 <Route path='*' element={<NotFound />} />
               </Routes>

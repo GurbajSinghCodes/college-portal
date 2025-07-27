@@ -7,10 +7,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 45px;
 }
 
 .footer a {
-    color: #90cdf4;
+    color: #f1f1f1;
+    color: var(--footer-link);
     font-size: small;
     text-decoration: none;
     margin: 0 10px;

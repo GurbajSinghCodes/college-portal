@@ -69,7 +69,7 @@ body {
 }
 
 .photo-grid div:hover {
-  transform: translateY(-5px);
+  transform: translateY(-2px);
 }
 
 .photo-grid img {
@@ -110,20 +110,27 @@ body {
   content: "";
   position: absolute;
   width: 100%;
-  bottom: -6px;
+  bottom: -8px;
   left: -7px;
   height: 3px;
-  outline: 0.025px solid black;
+  outline: 1px solid black;
   background-color: var(--theme1-contrast);
 }
 
-.notices li {
+.notices ul {
+  width: calc(100% - 30px);
+  margin-top: 25px;
+}
+
+.notices ul li {
   list-style-type: none;
   position: relative;
   margin-bottom: 1rem;
+  left: 30px;
 }
 
-.notices li::before {
+.notices ul li::before {
+  z-index: 999;
   content: "";
   position: absolute;
   left: -20px;

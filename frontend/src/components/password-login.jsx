@@ -5,7 +5,8 @@ import backend from '../assets/backend.jsx'
 import { useNavigate } from 'react-router-dom'
 import { userContext } from './user-context.jsx'
 import { toast } from 'react-toastify'
-import { Lock, Mail } from 'lucide-react'
+import { Lock, User } from 'lucide-react'
+import { Link } from 'react-router-dom'
 const PasswordLogin = () => {
   const navigate = useNavigate();
   const { setLoggedIn, setUsername } = useContext(userContext)
@@ -22,8 +23,6 @@ const PasswordLogin = () => {
 
   const verifyCredentials = async (data) => {
     try {
-      console.log("Reached try")
-
       const res = await axios.post(`${backend}/passwordlogin`, {
         email: data.email.toLowerCase(),
         password: data.password
@@ -50,25 +49,23 @@ const PasswordLogin = () => {
     <form onSubmit={handleSubmit(verifyCredentials)}>
       <fieldset>
         <div className="inputWrapper">
-          <img src="/svg/mail-icon.svg" className='inputIcon' alt="" />
-
+          <User className='inputIcon' />
           <input
             {...register('email', { required: { value: true, message: "Field can't be empty" } })}
             type="email"
             placeholder='Enter email'
             className={`inputs ${errors.email ? 'inputError' : ""}`} />
+          {errors.email && <p className='errors'>{errors.email.message}</p>}
         </div>
-        {errors.email && <p className='errors'>{errors.email.message}</p>}
-        <br />
         <div className="inputWrapper">
           <Lock className="inputIcon" />
           <input {...register('password', { required: { value: true, message: 'Password is required' } })}
             type="password"
             className={` inputs ${errors.password ? 'inputError' : ""}`}
             placeholder='Enter password' />
+          {errors.password && <p className='errors'>{errors.password.message}</p>}
         </div>
-
-        {errors.password && <p className='errors'>{errors.password.message}</p>}
+        <Link id="forgot" to="/login/forgotpassword">Forgot password ?</Link>
 
         <input type="submit" className='submit' disabled={isSubmitting} value={isSubmitting ? 'Verifying' : 'Login'} />
       </fieldset>

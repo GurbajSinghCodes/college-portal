@@ -5,7 +5,8 @@ import { toast } from "react-toastify";
 import backend from "../assets/backend.jsx";
 import { userContext } from "./user-context.jsx";
 import { useForm } from 'react-hook-form';
-import { Key, FolderPen, KeyRound, KeySquare } from 'lucide-react'
+import { User, Key, FolderPen, KeyRound, KeySquare, ToolCase } from 'lucide-react'
+import { Link } from "react-router-dom";
 
 
 const Verify = () => {
@@ -13,7 +14,7 @@ const Verify = () => {
     const { loggedIn, setLoggedIn, setUsername, checkLogin } = useContext(userContext)
 
     const [step, setStep] = useState("enter-email");
-
+    const [submitText, setSubmitText] = useState("")
     const otpCount = useRef(0);
     const navigate = useNavigate();
 
@@ -31,6 +32,7 @@ const Verify = () => {
 
     useEffect(() => {
         setFocus('email')
+        scrollTo()
     }, []);
 
     useEffect(() => {
@@ -43,12 +45,10 @@ const Verify = () => {
             setFocus('fullname')
         }
     }, [step]);
-
-    const resetAllStates = () => {
-        setStep("enter-email");
-        setValue('otp', "")
-        setValue('email', "")
-        setFocus('email')
+    const checkInputs = () => {
+        if (errors.password || errors.email || errors.otp || errors.fullname || errors.password || errors.confirmPassword) {
+            toast.error("Something isn't right. Check inputs and retry")
+        }
     };
 
     const sendOtp = async (data) => {
@@ -144,10 +144,7 @@ const Verify = () => {
                 setUsername(res.data.fullname)
                 toast.success(res.data.message)
                 setLoggedIn(true)
-
-                setTimeout(() => {
-                    navigate("/starred")
-                }, 2000);
+                navigate("/starred")
 
             } else {
                 toast.error(res.data.message)
@@ -158,110 +155,112 @@ const Verify = () => {
             toast.error("Error submitting details. Please try again")
         }
     }
+
     return (
         <div className="verify">
-            {step === "enter-email" &&
-                <>
-                    <form onSubmit={handleSubmit(sendOtp)}>
-                        <fieldset>
-                            <div className="inputWrapper">
-                                <img src="/svg/mail-icon.svg" className="inputIcon" />
-                                <input
-                                    {...register('email', { required: { value: true, message: 'Email is required' } })}
-                                    className={`inputs ${errors.email ? 'inputError' : ''}`}
-                                    placeholder="Enter your email"
-                                    type="email"
-                                />
-                            </div>
+
+            <>
+                <form onSubmit={handleSubmit(async (data) => {
+                    if (step === "enter-email")
+                        return sendOtp(data)
+                    else if (step === "enter-otp")
+                        return verifyOtp(data)
+                    else if (step === "enter-details")
+                        return userDataSubmit(data)
+                })}>
+                    <fieldset>
+                        <div className="inputWrapper">
+                            <User className="inputIcon" />
+                            <input
+                                disabled={!step === "enter-email" || isSubmitting}
+                                {...register('email', { required: { value: true, message: 'Email is required' } })}
+                                className={`inputs ${errors.email ? 'inputError' : ''}`}
+                                placeholder="Enter your email"
+                                type="email"
+                            />
                             {errors.email && <p className="errors">{errors.email.message}</p>}
-                            <br />
-                            <input className="submit" id="sendBtn" type="submit" disabled={isSubmitting} value={isSubmitting ? 'Sending OTP' : 'Send OTP'} />
+                        </div>
+                        {step === 'enter-otp' &&
+                            <>
 
-                        </fieldset>
-                    </form>
-                </>
-            }
-            {step === 'enter-otp' &&
-                <>
-                    <form onSubmit={handleSubmit(verifyOtp)}>
-                        <fieldset>
-                            <div className="inputWrapper">
+                                <div className="inputWrapper">
 
-                                <Key className="inputIcon" />
-                                <input
-                                    {...register('otp', { required: { value: true, message: "Field can't be empty" } })}
-                                    type="number"
-                                    className={`inputs ${errors.otp ? 'inputError' : ''}`}
-                                    placeholder="Enter OTP"
+                                    <Key className="inputIcon" />
+                                    <input
+                                        disabled={isSubmitting}
+                                        {...register('otp', { required: { value: true, message: "Field can't be empty" } })}
+                                        type="number"
+                                        className={`inputs ${errors.otp ? 'inputError' : ''}`}
+                                        placeholder="Enter OTP"
+                                    />
+                                    {errors.otp && <p className="errors">{errors.otp.message}</p>}
+                                </div>
+                            </>
+                        }
+                        {step === 'enter-details' &&
+                            <>
 
-                                />
-                            </div>
-                            {errors.otp && <p className="errors">{errors.otp.message}</p>}
+                                <div className="inputWrapper">
+                                    <FolderPen className="inputIcon" />
+                                    <input
+                                        disabled={isSubmitting}
 
-                            <input id="verifyBtn"
-                                className="submit" type="submit" disabled={isSubmitting} value={isSubmitting ? 'Validating' : 'Validate'} />
-                        </fieldset>
-                    </form>
-                </>
-            }
-            {step === 'enter-details' &&
-                <>
-                    <form onSubmit={handleSubmit(userDataSubmit)}>
-                        <fieldset>
-                            <legend> Enter details for user: {email ?? ""} </legend>
-                            <div className="inputWrapper">
-                                <FolderPen className="inputIcon" />
-                                <input
-                                    {...register('fullname', {
-                                        required: { value: true, message: "Field can't be empty" }, pattern: {
-                                            value: /^[A-Za-z\s]+$/,
-                                            message: "Only alphabets are allowed"
-                                        }, minLength: { value: 3, message: "Use atleast 3 characters in fullname" }
-                                    })}
-                                    className={`inputs ${errors.fullname ? 'inputError' : ''}`}
-                                    placeholder="Enter fullname"
-                                />
-                            </div>
-                            {errors.fullname && <p className="errors">{errors.fullname.message}</p>}
-                            <br />
-                            <div className="inputWrapper">
-                                <KeyRound className="inputIcon" />
-                                <input
-                                    {...register('password', {
-                                        required: { value: true, message: "Field can't be empty" },
-                                        pattern: {
-                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
-                                            message:
-                                                'Password must be at least 8 characters, include uppercase, lowercase, number, and special character'
-                                        }
-                                    })}
-                                    type="password"
-                                    className={`inputs ${errors.password ? 'inputError' : ''}`}
-                                    placeholder="Create password"
-                                />
-                            </div>
-                            {errors.password && <p className="errors">{errors.password.message}</p>}
-                            <br />
-                            <div className="inputWrapper">
-                                <KeySquare className="inputIcon" />
-                                <input
-                                    {...register('confirmPassword', {
-                                        required: { value: true, message: "Field can't be empty" },
-                                        validate:
-                                            (value) => value === password || "Passwords donot match"
+                                        {...register('fullname', {
+                                            required: { value: true, message: "Field can't be empty" }, pattern: {
+                                                value: /^[A-Za-z\s]+$/,
+                                                message: "Only alphabets are allowed"
+                                            }, minLength: { value: 3, message: "Use atleast 3 characters in fullname" }
+                                        })}
+                                        className={`inputs ${errors.fullname ? 'inputError' : ''}`}
+                                        placeholder="Enter fullname"
+                                    />
+                                    {errors.fullname && <p className="errors">{errors.fullname.message}</p>}
+                                </div>
+                                <div className="inputWrapper">
+                                    <KeyRound className="inputIcon" />
+                                    <input
+                                        disabled={isSubmitting}
 
-                                    })}
-                                    type="password"
-                                    className={`inputs ${errors.confirmPassword ? 'inputError' : ''}`}
-                                    placeholder="Confirm password"
-                                />
-                            </div>
-                            {errors.confirmPassword && <p className="errors">{errors.confirmPassword.message}</p>}
-                            <input type="submit"
-                                className="submit" disabled={isSubmitting} value={isSubmitting ? 'Submitting' : 'Submit '} />
-                        </fieldset>
-                    </form>
-                </>}
+                                        {...register('password', {
+                                            required: { value: true, message: "Field can't be empty" },
+                                            pattern: {
+                                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+                                                message:
+                                                    'Password must be at least 8 characters, include uppercase, lowercase, number, and special character'
+                                            }
+                                        })}
+                                        type="password"
+                                        className={`inputs ${errors.password ? 'inputError' : ''}`}
+                                        placeholder="Create password"
+                                    />
+                                    {errors.password && <p className="errors">{errors.password.message}</p>}
+                                </div>
+                                <div className="inputWrapper">
+                                    <KeySquare className="inputIcon" />
+                                    <input
+                                        disabled={isSubmitting}
+
+                                        {...register('confirmPassword', {
+                                            required: { value: true, message: "Field can't be empty" },
+                                            validate:
+                                                (value) => value === password || "Passwords donot match"
+
+                                        })}
+                                        type="password"
+                                        className={`inputs ${errors.confirmPassword ? 'inputError' : ''}`}
+                                        placeholder="Confirm password"
+                                    />
+                                    {errors.confirmPassword && <p className="errors">{errors.confirmPassword.message}</p>}
+                                </div>
+
+                            </>}
+                        <input className="submit" id="sendBtn" type="submit" onClick={checkInputs} disabled={isSubmitting} value={isSubmitting ? "Submitting" : "Submit"} />
+                    </fieldset>
+                </form>
+            </>
+
+
+
         </div>
     );
 };

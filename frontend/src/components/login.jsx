@@ -1,9 +1,14 @@
-import { useEffect, useState, useContext } from 'react'
+import { useContext, useRef, useEffect } from 'react'
 import { userContext } from './user-context'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { VenetianMask, IdCardLanyard } from 'lucide-react'
 const Login = () => {
     const { loggedIn, checkLogin } = useContext(userContext)
+    const formRef = useRef();
+    useEffect(() => {
+        formRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [])
+
     if (loggedIn) {
         return (
             <div className='alreadyLoggedIn'>
@@ -11,49 +16,25 @@ const Login = () => {
             </div>
         )
     }
-    const [moveUp, setMoveUp] = useState(false)
-    const location = useLocation()
-    const handleClick = () => {
-        setMoveUp(true)
-    }
-    useEffect(() => {
-        if (location.pathname == '/login' || location.pathname == '/login/') {
-            setMoveUp(false)
-        }
-        else {
-            setMoveUp(true)
-        }
-    }, [location.pathname])
-    useEffect(() => {
-        if (location.pathname.includes('verify-otp') || location.pathname.includes('passwordlogin')) {
-            const formSection = document.getElementById('formsection');
-            if (formSection) {
-                formSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [location.pathname]);
-
     return (
-        <div className='loginmain' >
+        <div className='loginmain' ref={formRef}>
+            <div className="logincontainer">
+                <span id='welcome'>Welcome</span>
+                <div className="buttonSection">
 
-            <div className={`buttonSection  ${moveUp ? "moved-up" : ""}`}>
-
-                <section className='loginheads'>
-                    <Link to="verify-otp" onClick={handleClick}>
+                    <NavLink className={({ isActive }) => `loginheads ${isActive ? "active-login" : ""}`} to="signin" >
                         <VenetianMask className='imageIcon' />
-                        <big>Login using OTP</big> <small>Create new account/ Log into existing account</small></Link>
-                </section>
-                <section className='loginheads' >
-                    <Link to="passwordlogin" onClick={handleClick} >
+                        <span>LOGIN</span></NavLink>
+                    <NavLink className={({ isActive }) => `loginheads ${isActive ? "active-login" : ""}`} to="signup"  >
                         <IdCardLanyard className='imageIcon' />
-                        <big>Login using Password</big> <small>Requires an existing account</small></Link>
-                </section>
-            </div>
-            <div id='formsection'>
+                        <span>SIGNUP</span> </NavLink>
+                </div>
+                <div className='formsection'>
 
-                <Outlet />
-            </div>
-        </ div >
+                    <Outlet />
+                </div>
+            </ div >
+        </div>
 
     )
 }
