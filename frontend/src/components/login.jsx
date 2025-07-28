@@ -4,11 +4,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { VenetianMask, IdCardLanyard } from 'lucide-react'
 const Login = () => {
     const { loggedIn, checkLogin } = useContext(userContext)
-    const formRef = useRef();
-    useEffect(() => {
-        formRef.current?.scrollIntoView({ behavior: "smooth" })
-    }, [])
-
     if (loggedIn) {
         return (
             <div className='alreadyLoggedIn'>
@@ -17,7 +12,7 @@ const Login = () => {
         )
     }
     return (
-        <div className='loginmain' ref={formRef}>
+        <div className='loginmain'>
             <div className="logincontainer">
                 <span id='welcome'>Welcome</span>
                 <div className="buttonSection">

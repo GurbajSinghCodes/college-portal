@@ -63,7 +63,7 @@ const Navbar = ({ menuOpen, setMenuOpen }) => {
                     {loggedIn ? (
                         <NavLink onClick={handleLogout} className="logout-btn"> <User className="navIcon" />Logout</NavLink>
                     ) : (
-                        <NavLink to="/login" className={({ isActive }) => isActive ? "active-link" : ""}><User className="navIcon" /> Login</NavLink>
+                        <NavLink to="/login/signin" className={({ isActive }) => isActive ? "active-link" : ""}><User className="navIcon" /> Login</NavLink>
 
                     )}
                 </li>

@@ -65,8 +65,7 @@ const PasswordLogin = () => {
             placeholder='Enter password' />
           {errors.password && <p className='errors'>{errors.password.message}</p>}
         </div>
-        <Link id="forgot" to="/login/forgotpassword">Forgot password ?</Link>
-
+        <div className="forgotpass"><Link id="forgot" to="/login/forgotpassword">Forgot password ?</Link></div>
         <input type="submit" className='submit' disabled={isSubmitting} value={isSubmitting ? 'Verifying' : 'Login'} />
       </fieldset>
     </form>

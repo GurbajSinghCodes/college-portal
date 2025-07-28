@@ -67,7 +67,7 @@
 
 .loginheads:active,
 .loginheads:focus {
-    background-color: var(--form-bg);
+    background-color: var(--theme1-contrast);
     color: black;
     outline: none;
 }
@@ -157,15 +157,23 @@ fieldset {
     outline: none;
 }
 
+fieldset .forgotpass {
+    text-align: right;
+}
 
 fieldset #forgot {
     font-weight: 500;
-    display: block;
+    padding: 3px 15px;
+    border-radius: 20px;
+    margin: 5px;
     font-size: 12px;
     text-decoration: none;
-    text-align: right;
-    width: 90%;
     color: rgb(58, 57, 57);
+}
+
+fieldset #forgot:focus {
+    background-color: var(--form-bg);
+    outline: 0;
 }
 
 form .submit {
