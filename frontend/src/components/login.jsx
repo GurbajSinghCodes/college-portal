@@ -13,6 +13,8 @@ const Login = () => {
     }
     return (
         <div className='loginmain'>
+            <div id="loginbgblur" className="full-page-blur"></div>
+
             <div className="logincontainer">
                 <span id='welcome'>Welcome</span>
                 <div className="buttonSection">

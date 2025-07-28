@@ -1,8 +1,12 @@
 .alreadyLoggedIn,
 .loginmain {
-    background-color: var(--form-bg);
-    min-height: calc(100vh - 60px);
     padding: 30px;
+}
+
+#loginbgblur {
+    background: var(--form-bg);
+    filter: none;
+
 }
 
 .alreadyLoggedIn {
