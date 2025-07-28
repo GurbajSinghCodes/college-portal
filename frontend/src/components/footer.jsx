@@ -25,9 +25,6 @@ const Footer = () => {
             <div className="footerbelow ">
                 <div className="footer-section">
                     <p>© 2025 <strong>HIET</strong> — Empowering Future Innovators</p>
-                    <p className={`username`}>
-                        {/* {loggedIn ? `Active session: ${username}` : ""} */}
-                    </p>
                 </div>
             </div>
 

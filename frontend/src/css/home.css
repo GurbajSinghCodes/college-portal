@@ -39,9 +39,15 @@ body {
   border-radius: 10px;
 }
 
+.banner p {
+  margin-top: 10px;
+}
+
 .content {
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -52,7 +58,6 @@ body {
 
 .photos {
   padding: 20px;
-  width: 100%;
 }
 
 .photo-grid {
@@ -65,7 +70,8 @@ body {
 .photo-grid div {
   border: 1px solid;
   border-radius: 10px;
-
+  display: flex;
+  flex-direction: column;
 }
 
 .photo-grid div:hover {
@@ -96,21 +102,22 @@ body {
   color: rgb(7, 0, 0);
   margin-top: 25px;
   border-radius: 10px;
-  padding: 20px 10px;
-  width: 30vw;
-  overflow: auto;
+  padding: 20px;
+  width: min(95vw, 100%);
 }
 
 .notices h2 {
   position: relative;
-  left: 7px;
+  margin-left: 16px;
+  padding: 0 0 15px 0;
+
 }
 
 .notices h2::after {
   content: "";
   position: absolute;
   width: 100%;
-  bottom: -8px;
+  bottom: 0px;
   left: -7px;
   height: 3px;
   outline: 1px solid black;
@@ -118,11 +125,14 @@ body {
 }
 
 .notices ul {
-  width: calc(100% - 30px);
-  margin-top: 25px;
+  padding: 25px 0px 0 0;
+  max-height: 60vh;
+  overflow: auto;
+
 }
 
 .notices ul li {
+  width: calc(100% - 30px);
   list-style-type: none;
   position: relative;
   margin-bottom: 1rem;
@@ -147,12 +157,13 @@ body {
 }
 
 
+@media (orientation: portrait) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 @media screen and (max-width: 1024px) {
-
-  .notices {
-    width: 40vw;
-  }
 
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -165,17 +176,33 @@ body {
 
 
 @media screen and (max-width: 900px) {
+  .banner h1 {
+    font-size: 25px;
+  }
+
+  .banner p {
+    font-size: x-small;
+  }
+
+  .notices {
+    width: unset;
+  }
+
+  .notices ul {
+    max-height: 50vh;
+
+  }
+
   .notices li {
     margin-bottom: 0.25rem;
   }
 
-  .content {
-    flex-direction: column;
+  .notices h2 {
+    font-size: 20px;
   }
 
-  .notices {
-    width: 95%;
-    margin: 1rem auto;
+  .content {
+    flex-direction: column;
   }
 
   .photos {
@@ -194,6 +221,10 @@ body {
     padding: 1rem;
   }
 
+  .notices {
+    padding: 20px 10px;
+  }
+
   .photo-grid {
     grid-template-columns: 1fr;
   }
@@ -202,7 +233,5 @@ body {
     font-size: 0.9rem;
   }
 
-  .footer {
-    font-size: 0.8rem;
-  }
+
 }

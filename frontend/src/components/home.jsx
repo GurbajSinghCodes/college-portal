@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { Image } from "lucide-react"
 const HomePage = () => {
 
 
@@ -23,13 +23,12 @@ const HomePage = () => {
                 <section className="photos">
                     <h2>Campus Highlights</h2>
                     <div className="photo-grid">
-                        <div> <img src="/images/hgpi.jpg" alt="Campus view" /><span>Campus</span> </div>
-                        <div>  <img src="/images/library.jpg" alt="Library" />              <span>Library</span></div>
-                        <div> <img src="/images/playground.jpg" alt="Computer Lab" />              <span>Playground</span> </div>
-                        <div> <img src="/images/smartroom.jpg" alt="Campus view" /><span>Smart Rooms</span> </div>
-                        <div>  <img src="/images/walkway.jpg" alt="Campus" />              <span>Walkway</span></div>
-                        <div>  <img src="/images/hostel.jpg" alt="Library" />              <span>Hostels</span></div>
-
+                        <div> <img src="/images/hgpi.jpg" alt="Campus view" /> <span>Campus</span></div>
+                        <div> <img src="/images/library.jpg" alt="library" /> <span>Library</span></div>
+                        <div> <img src="/images/playground.jpg" alt="PLayground" />  <span>Playground</span></div>
+                        <div> <img src="/images/smartroom.jpg" alt="Smart Rooms" /><span>Smart Rooms</span></div>
+                        <div> <img src="/images/walkway.jpg" alt="Walkway" /><span>Walkway</span></div>
+                        <div> <img src="/images/hostel.jpg" alt="Hostel Rooms" /><span>Hostels</span></div>
                     </div>
                 </section>
 

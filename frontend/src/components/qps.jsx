@@ -101,7 +101,6 @@ const Qps = () => {
 
     const onStarToggle = async (filePath) => {
         try {
-            // Check if user is logged in
             const loggedin = await axios.get(`${backend}/loggedin`, {
                 withCredentials: true,
             });

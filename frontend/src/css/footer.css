@@ -31,6 +31,10 @@
     margin: 1px;
 }
 
+.footer-section a {
+    padding: 5px;
+    white-space: nowrap;
+}
 
 
 .footerabove {
@@ -45,7 +49,6 @@
 
 
 
-
 @media screen and (max-width:768px) {
 
     .footer {
@@ -53,8 +56,13 @@
         flex-direction: column;
         justify-content: unset;
         padding: 12px 0px;
-        height: 100px;
     }
+
+    .footer-section a {
+        font-size: 10px;
+    }
+
+
 }
 
 @media screen and (max-width:500px) {
