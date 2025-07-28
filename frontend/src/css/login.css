@@ -2,9 +2,7 @@
 .loginmain {
     background-color: var(--form-bg);
     min-height: calc(100vh - 60px);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
+    padding: 30px;
 }
 
 .alreadyLoggedIn {
@@ -32,6 +30,7 @@
     gap: 30px;
     box-shadow: 1px 10px 20px -10px var(--form-theme);
     align-items: center;
+    justify-content: baseli ne;
 }
 
 .logincontainer #welcome {

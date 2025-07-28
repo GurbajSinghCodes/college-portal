@@ -30,7 +30,6 @@ const Login = () => {
                         <span>SIGNUP</span> </NavLink>
                 </div>
                 <div className='formsection'>
-
                     <Outlet />
                 </div>
             </ div >
