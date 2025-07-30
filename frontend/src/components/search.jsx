@@ -58,9 +58,12 @@ function search() {
                 {results.map(({ item }) => (
 
                     <li key={item.path}>
-                        <a target="_blank" href={backend + item.path.replace(/^\/(notes|qps)/, "/resources")}>{item.name}     <span>
-                            {backend + item.path.replace(/^\/(notes|qps)/, "/resources")}
-                        </span></a>
+                        <a target="_blank" href={backend + item.path.replace(/^\/(notes|qps)/, "/resources")}>
+                            {item.name}
+                            {item.path.includes("notes") ? " (Notes) " : " (Question paper) "}
+                            <span>
+                                {backend + item.path.replace(/^\/(notes|qps)/, "/resources")}
+                            </span></a>
 
                     </li>
                 ))}
