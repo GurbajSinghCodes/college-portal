@@ -171,7 +171,7 @@ const Verify = () => {
                         <div className="inputWrapper">
                             <User className="inputIcon" />
                             <input
-                                disabled={!step === "enter-email" || isSubmitting}
+                                disabled={!(step === "enter-email") || isSubmitting}
                                 {...register('email', { required: { value: true, message: 'Email is required' } })}
                                 className={`inputs ${errors.email ? 'inputError' : ''}`}
                                 placeholder="Enter your email"
