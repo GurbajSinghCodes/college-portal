@@ -95,8 +95,8 @@ const Verify = () => {
             );
 
             if (res.data.success) {
+                toast.success("OTP verified");
                 if (res.data.exists) {
-                    toast.success("OTP verified");
                     setLoggedIn(true)
                     setUsername(res.data.fullname)
                     setTimeout(() => {
@@ -104,7 +104,6 @@ const Verify = () => {
                     }, 2000);
                 }
                 else {
-
                     setStep("enter-details")
                 }
             }
