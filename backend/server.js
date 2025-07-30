@@ -27,13 +27,13 @@ mongoose.connection.on("connected", () => {
 app.use(express.json());
 
 app.use(cors({
-    origin: frontend,
+    origin: [frontend],
     credentials: true
 }));
 
 
 
-const otpStore = {}; // { email: otp }
+const otpStore = {};
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -89,7 +89,7 @@ Your One-Time Password (OTP) is: ${otp}
 This code is valid for 5 minutes. Please do not share it with anyone.`
 
     });
-    console.log("Otp sent", otp)
+    console.log("Otp sent")
     res.json({ success: true, message: "OTP sent" });
 });
 
@@ -256,8 +256,59 @@ app.get("/getqps", (req, res) => {
     }
 });
 
+function getFolderStructure(basePath, webPath = '') {
+    const entries = fs.readdirSync(basePath, { withFileTypes: true });
+    const result = [];
+    for (const entry of entries) {
+        const fullPath = path.join(basePath, entry.name);
+        const webFullPath = path.join(webPath, entry.name).replace(/\\/g, '/');
+
+        if (entry.isDirectory()) {
+            const children = getFolderStructure(fullPath, webFullPath); // Get inner structure
+            result.push({ type: 'folder', name: entry.name, path: webFullPath, children });
+        } else if (entry.isFile()) {
+            result.push({ type: 'file', name: entry.name, path: webFullPath });
+        }
+    }
+
+    return result;
+}
+
+function flattenFolderData(data, basePath = "") {
+    let result = [];
+
+    data.forEach(item => {
+        const currentPath = `${basePath}/${item.name}`;
+
+        if (item.type === "file") {
+            result.push({ name: item.name, path: currentPath });
+        } else if (item.type === "folder") {
+            result = result.concat(flattenFolderData(item.children, currentPath));
+        }
+    });
+
+    return result;
+}
+
+
 app.use("/resources", express.static(NOTES_DIR));
 app.use("/resources", express.static(QPS_DIR));
+
+
+app.post("/get-search", (req, res) => {
+    try {
+        const folderDataNotes = getFolderStructure(NOTES_DIR);
+        const folderDataQPS = getFolderStructure(QPS_DIR);
+
+        const notesData = flattenFolderData(folderDataNotes, "/notes");
+        const qpsData = flattenFolderData(folderDataQPS, "/qps");
+
+        res.json([...notesData, ...qpsData]);
+    } catch (err) {
+        console.error("Error in /get-search:", err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 app.use("/api", dbRoutes);
 

@@ -2,9 +2,15 @@
   box-sizing: border-box;
 }
 
+.app {
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .appcontent {
-  /* flex: 1; */
+  flex: 1;
   position: relative;
   top: 60px;
   min-height: calc(100vh - 60px);
@@ -39,6 +45,16 @@
   font-weight: bold;
 }
 
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.searchLink {
+  text-decoration: none;
+  color: unset;
+}
+
 .navIcon {
   height: 18px;
 }
@@ -51,16 +67,19 @@
   gap: 4px;
 }
 
-.nav-links * {
+.nav-links *,
+.searchLink {
   font-family: 'Badoni MT';
   font-size: 12px;
 }
 
-.nav-links li:active {
+.nav-links li:active,
+.searchLink:active {
   transform: scale(0.95);
 }
 
-.nav-links li a {
+.nav-links li a,
+.searchLink {
   margin: 0.1rem;
   padding: 0.3rem;
   color: white;
@@ -74,20 +93,19 @@
 
 }
 
-.nav-links li a:hover {
+.nav-links li a:hover,
+.searchLink:hover {
   background-color: rgba(265, 265, 265, 0.8);
   color: var(--theme1);
+  text-decoration: none;
 }
 
 
 
-.nav-links li a:focus-visible {
+.nav-links li a:focus-visible,
+.searchLink:focus-visible {
   outline: none;
   text-decoration: underline;
-}
-
-.nav-links li a:hover {
-  text-decoration: none;
 }
 
 
@@ -100,7 +118,7 @@
   content: "";
   position: absolute;
   bottom: -4px;
-  left: 0;
+  left: 10%;
   height: 2px;
   background-color: var(--theme1-contrast);
   border-radius: 1px;
@@ -113,7 +131,7 @@
   }
 
   100% {
-    width: 100%;
+    width: 90%;
   }
 }
 
@@ -177,11 +195,25 @@
     top: 60px;
     right: -100%;
     gap: 0;
+    min-height: 70vh;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     background-color: var(--theme1-navopen);
     transition: all 0.4s ease;
+  }
+
+  .right {
+    flex-direction: row-reverse;
+    gap: 15px;
+  }
+
+  .navSearch {
+    height: 25px;
+  }
+
+  .searchLink span {
+    display: none;
   }
 
   .nav-links.open {
@@ -192,8 +224,11 @@
   }
 
   .active-link::after {
-    left: 10%;
     bottom: 12px;
+  }
+
+  .searchLink:after {
+    height: 0;
   }
 
   @keyframes widthanimate {

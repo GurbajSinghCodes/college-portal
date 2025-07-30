@@ -34,7 +34,11 @@
 .footer-section a {
     padding: 5px;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    font-size: x-small;
 }
+
 
 
 .footerabove {
@@ -47,7 +51,9 @@
     margin: 0 8px;
 }
 
-
+.footerIcon {
+    height: 15px;
+}
 
 @media screen and (max-width:768px) {
 
@@ -62,6 +68,10 @@
         font-size: 10px;
     }
 
+    .footer-section p {
+
+        font-size: small;
+    }
 
 }
 

@@ -5,16 +5,16 @@ import { toast } from "react-toastify";
 import backend from "../assets/backend.jsx";
 import { userContext } from "./user-context.jsx";
 import { useForm } from 'react-hook-form';
-import { User, Key, FolderPen, KeyRound, KeySquare, ToolCase } from 'lucide-react'
+import { Eye, EyeOff, User, Key, FolderPen, KeyRound, KeySquare, ToolCase } from 'lucide-react'
 import { Link } from "react-router-dom";
 
 
 const Verify = () => {
 
     const { loggedIn, setLoggedIn, setUsername, checkLogin } = useContext(userContext)
-
-    const [step, setStep] = useState("enter-email");
-    const [submitText, setSubmitText] = useState("")
+    const [showPassword1, setShowPassword1] = useState(false)
+    const [showPassword2, setShowPassword2] = useState(false)
+    const [step, setStep] = useState("enter-details");
     const otpCount = useRef(0);
     const navigate = useNavigate();
 
@@ -229,27 +229,50 @@ const Verify = () => {
                                                     'Password must be at least 8 characters, include uppercase, lowercase, number, and special character'
                                             }
                                         })}
-                                        type="password"
-                                        className={`inputs ${errors.password ? 'inputError' : ''}`}
+                                        type={showPassword1 ? "text" : "password"}
+                                        onBlur={() => setShowPassword1(false)}
+                                        className={`no-eye inputs ${errors.password ? 'inputError' : ''}`}
                                         placeholder="Create password"
                                     />
+                                    <span
+                                        className="eyeIcon"
+                                        tabIndex="0"
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                setShowPassword1(!showPassword1)
+                                            }
+                                        }}
+                                        onClick={() => setShowPassword1(!showPassword1)} >
+                                        {showPassword1 ? <EyeOff className='inputIcon' /> : <Eye className='inputIcon' />}
+                                    </span>
                                     {errors.password && <p className="errors">{errors.password.message}</p>}
                                 </div>
                                 <div className="inputWrapper">
                                     <KeySquare className="inputIcon" />
                                     <input
                                         disabled={isSubmitting}
-
                                         {...register('confirmPassword', {
                                             required: { value: true, message: "Field can't be empty" },
                                             validate:
                                                 (value) => value === password || "Passwords donot match"
-
                                         })}
-                                        type="password"
-                                        className={`inputs ${errors.confirmPassword ? 'inputError' : ''}`}
+                                        onBlur={() => setShowPassword2(false)}
+
+                                        type={showPassword2 ? "text" : "password"}
+                                        className={`no-eye inputs ${errors.confirmPassword ? 'inputError' : ''}`}
                                         placeholder="Confirm password"
                                     />
+                                    <span
+                                        className="eyeIcon"
+                                        tabIndex="0"
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                setShowPassword2(!showPassword2)
+                                            }
+                                        }}
+                                        onClick={() => setShowPassword2(!showPassword2)} >
+                                        {showPassword2 ? <EyeOff className='inputIcon' /> : <Eye className='inputIcon' />}
+                                    </span>
                                     {errors.confirmPassword && <p className="errors">{errors.confirmPassword.message}</p>}
                                 </div>
 

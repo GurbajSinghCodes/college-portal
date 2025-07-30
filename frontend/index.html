@@ -11,7 +11,7 @@
 
 <body>
   <div id="loadercontainer">
-    <div class="text visible">Loading...</div>
+    <div class="text">Loading...</div>
     <div class="spinner"> </div>
   </div>
   <div id="root"></div>
@@ -19,8 +19,7 @@
 </body>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.text').classList.add('hidden');
-    document.querySelector('.text').classList.remove('visible');
+    document.querySelector('.loadercontainer').classList.add('hidden');
   });
 
 </script>

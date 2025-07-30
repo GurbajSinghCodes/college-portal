@@ -5,11 +5,12 @@ import backend from '../assets/backend.jsx'
 import { useNavigate } from 'react-router-dom'
 import { userContext } from './user-context.jsx'
 import { toast } from 'react-toastify'
-import { Lock, User } from 'lucide-react'
+import { Eye, EyeOff, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 const PasswordLogin = () => {
   const navigate = useNavigate();
   const { setLoggedIn, setUsername } = useContext(userContext)
+  const [showPassword, setShowPassword] = useState(false)
   const {
     register,
     handleSubmit,
@@ -60,9 +61,20 @@ const PasswordLogin = () => {
         <div className="inputWrapper">
           <Lock className="inputIcon" />
           <input {...register('password', { required: { value: true, message: 'Password is required' } })}
-            type="password"
-            className={` inputs ${errors.password ? 'inputError' : ""}`}
+            type={showPassword ? "text" : "password"}
+            className={`no-eye inputs ${errors.password ? 'inputError' : ""}`}
             placeholder='Enter password' />
+          <span
+            className="eyeIcon"
+            tabIndex="0"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                setShowPassword(!showPassword)
+              }
+            }}
+            onClick={() => setShowPassword(!showPassword)} >
+            {showPassword ? <EyeOff className='inputIcon' /> : <Eye className='inputIcon' />}
+          </span>
           {errors.password && <p className='errors'>{errors.password.message}</p>}
         </div>
         <div className="forgotpass"><Link id="forgot" to="/login/forgotpassword">Forgot password ?</Link></div>
