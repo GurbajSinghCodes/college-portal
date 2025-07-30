@@ -111,7 +111,6 @@ app.post("/verify-otp", async (req, res) => {
         const exists = await User.exists({ email });
 
         if (!existingUser) {
-            await User.create({ email, starredFiles: [] });
             console.log("New user created");
         } else {
             req.session.user = { email }
@@ -140,6 +139,7 @@ app.post('/existinguser', async (req, res) => {
 app.post('/adddetails', async (req, res) => {
     try {
         const { email, fullname, password } = req.body;
+        await User.create({ email, starredFiles: [] });
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
