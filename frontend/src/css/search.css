@@ -33,11 +33,12 @@
     margin: 20px auto;
     transition: all 0.2s ease-in;
     background-color: var(--form-bg);
-    border-left: 10px solid blue;
+    border-left: 15px solid var(--theme1-bg2);
     padding: 10px 20px;
     text-decoration: none;
     font-size: 15px;
     display: flex;
+    color: var(--theme1);
     flex-direction: column;
 }
 
