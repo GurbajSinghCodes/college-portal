@@ -71,6 +71,5 @@ function search() {
         </div>
     );
 }
-// http://localhost:5000/resources/3rd%20Sem/Computer%20Organisation%20and%20Architecture/Cache%20memory%20(PPT).pdf
 
 export default search;

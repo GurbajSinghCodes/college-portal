@@ -14,7 +14,7 @@ const Verify = () => {
     const { loggedIn, setLoggedIn, setUsername, checkLogin } = useContext(userContext)
     const [showPassword1, setShowPassword1] = useState(false)
     const [showPassword2, setShowPassword2] = useState(false)
-    const [step, setStep] = useState("enter-details");
+    const [step, setStep] = useState("enter-email");
     const otpCount = useRef(0);
     const navigate = useNavigate();
 
