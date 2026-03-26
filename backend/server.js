@@ -10,9 +10,11 @@ import dbRoutes from "./routes/db-routes.js";
 import { fileURLToPath } from "url";
 import User from "./models/user.js";
 import MongoStore from 'connect-mongo'
+import { Resend } from 'resend';
+
 
 dotenv.config();
-
+const sendermail = process.env.SENDER_MAIL
 const frontend = process.env.FRONT_END
 const app = express();
 
@@ -36,16 +38,17 @@ app.use(cors({
 const otpStore = {};
 
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
+const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = {
+    sendMail: async ({ from, to, subject, html, text }) => {
+        return await resend.emails.send({
+            from: from || 'onboarding@resend.dev',
+            to,
+            subject,
+            html: html || `<p>${text}</p>`,
+        });
     }
-});
-
+};
 const isProduction = process.env.NODE_ENV === "production";
 
 if (isProduction) {
@@ -61,8 +64,8 @@ app.use(session({
     }),
     cookie: {
         httpOnly: true,
-        secure: isProduction,              // true in production (HTTPS), false locally
-        sameSite: isProduction ? "none" : "lax", // required for cross-origin cookies
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000     // 7 days
     }
 }));
@@ -81,7 +84,7 @@ app.post("/send-otp", async (req, res) => {
         delete otpStore[email]
     }, 5 * 60 * 1000)
     await transporter.sendMail({
-        from: `Verify App <${process.env.EMAIL_USER}>`,
+        from: `Verify App <${sendermail}>`,
         to: email,
         subject: `Your OTP Code : ${otp} `,
         text: `Thank you for logging into the HIET portal.
